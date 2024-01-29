@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+{% block title %}Последние статьи{% endblock %}
+
+{% block content %}
+    <div class="article-list">
+        {% if latest_articles_list %}
+            {% for a in latest_articles_list %}
+                <div class="article">
+                    <h2><a href="{% url 'articles:detail' a.id %}">{{a.article_title}}</a></h2>
+                    <p>{{a.publish_date}}</p> <!-- Добавьте дату публикации, если есть -->
+                    <p>{{a.summary}}</p> <!-- Добавьте краткое описание статьи, если есть -->
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Статьи не найдены</p>
+        {% endif %}
+    </div>
+{% endblock %}
