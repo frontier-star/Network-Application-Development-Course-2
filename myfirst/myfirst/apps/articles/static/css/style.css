@@ -51,6 +51,14 @@ img {
     font-size: 20px;
 }
 
+.nav-link:hover {
+    color: blue;
+}
+
+.nav-link:active {
+    color: red;
+}
+
 .article {
     display: flex;
     gap: 40px;
@@ -60,4 +68,33 @@ img {
 .link-title-article {
     text-decoration: none;
     color: brown;
+}
+
+.article-main-content {
+    margin-bottom: 100px;
+}
+
+.detail_main_title-comment {
+    color: brown;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.comment-form-input, .comment-form-textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.comment-form-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.comment-form-button:hover {
+    background-color: #0056b3;
 }
