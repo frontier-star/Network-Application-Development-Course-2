@@ -1,21 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-
 {% block title %}Последние статьи{% endblock %}
 
 {% block content %}
-    <div class="article-list">
+<header class="header">
+    <div class="container">
+        <h1 class="main_title">Блог</h1>
+        <nav class="navigation">
+            <a class="nav-link" href="{% url 'articles:index' %}">Главная</a>
+            <a class="nav-link" href="{% url 'articles:about' %}">О нас</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="article-list container">
         {% if latest_articles_list %}
             {% for a in latest_articles_list %}
                 <div class="article">
-                    <h2><a href="{% url 'articles:detail' a.id %}">{{a.article_title}}</a></h2>
-                    <p>{{a.publish_date}}</p> <!-- Добавьте дату публикации, если есть -->
-                    <p>{{a.summary}}</p> <!-- Добавьте краткое описание статьи, если есть -->
+                    <img class="article-image" src="{% static 'images/article_image.jpg' %}" alt="Изображение статьи">
+                    <div class="flex-article">
+                        <h2 class="article-title"><a class="link-title-article" href="{% url 'articles:detail' a.id %}">{{ a.article_title }}</a></h2>
+                        <p class="article-date">{{ a.pub_date }}</p>
+                    </div>
                 </div>
             {% endfor %}
         {% else %}
-            <p>Статьи не найдены</p>
+            <p class="no-articles">Статьи не найдены</p>
         {% endif %}
     </div>
+</main>
+
+<footer class="footer container">
+    <p>Сайт-блог создан в 2024 году</p>
+    <p>Читайте наши лучшие статьи</p>
+</footer>
 {% endblock %}

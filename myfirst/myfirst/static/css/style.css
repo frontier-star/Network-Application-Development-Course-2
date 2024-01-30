@@ -1,0 +1,27 @@
+.page-body {
+    color: black;
+    font-family: Roboto, Arial, sans-serif;
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: min-content 1fr min-content;
+    min-width: 1160px;
+}
+
+.container {
+    max-width: 1160px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.page {
+    height: 100%;
+}
+

@@ -17,6 +17,9 @@ def detail(request, article_id):
     
     return render(request, 'articles/detail.html', {'article': a, 'latest_comments_list': latest_comments_list})
     
+def about(request):
+    return render(request, 'articles/about.html')
+    
 def leave_comment(request, article_id):
     try:
         a = Article.objects.get( id = article_id )

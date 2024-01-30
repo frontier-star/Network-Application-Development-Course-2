@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Последние статьи{% endblock %}
+
+{% block content %}
+<header class="header">
+    <div class="container">
+        <h1 class="main_title">Блог</h1>
+        <nav class="navigation">
+            <a class="nav-link" href="{% url 'articles:index' %}">Главная</a>
+            <a class="nav-link" href="{% url 'articles:about' %}">О нас</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+	Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non dolorem nam soluta ratione! Vitae deserunt, est aspernatur officia error odio doloremque inventore tenetur earum enim, modi labore nemo aperiam!
+</main>
+
+<footer class="footer container">
+    <p>Сайт-блог создан в 2024 году</p>
+    <p>Читайте наши лучшие статьи</p>
+</footer>
+{% endblock %}
