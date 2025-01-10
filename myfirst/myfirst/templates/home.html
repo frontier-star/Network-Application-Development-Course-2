@@ -1,0 +1,287 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}UI тренды 2025{% endblock %}</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+
+	{% block extra_css %}
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Inter', sans-serif;
+		}
+
+		body {
+			background-color: #0A0A0B;
+			color: #FFFFFF;
+			overflow-x: hidden;
+		}
+
+		.noise-bg {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			background: url('data:image/svg+xml,...') repeat;
+			opacity: 0.03;
+			z-index: -1;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 24px;
+		}
+
+		.header {
+			padding: 24px 0;
+			position: fixed;
+			width: 100%;
+			top: 0;
+			backdrop-filter: blur(10px);
+			background: rgba(10, 10, 11, 0.8);
+			z-index: 100;
+		}
+
+		.nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.logo {
+			font-size: 24px;
+			font-weight: 700;
+			background: linear-gradient(135deg, #FF3366, #FF6B3D);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+
+		.hero {
+			padding: 180px 0 100px;
+			position: relative;
+		}
+
+		.hero-content {
+			max-width: 650px;
+		}
+
+		.hero-title {
+			font-size: 64px;
+			font-weight: 800;
+			line-height: 1.1;
+			margin-bottom: 24px;
+			background: linear-gradient(135deg, #FFFFFF 0%, #A5A5A5 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+
+		.hero-description {
+			font-size: 20px;
+			line-height: 1.6;
+			color: #A5A5A5;
+			margin-bottom: 40px;
+		}
+
+		.btn {
+			padding: 16px 32px;
+			border-radius: 12px;
+			font-weight: 600;
+			font-size: 16px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.btn-primary {
+			background: linear-gradient(135deg, #FF3366, #FF6B3D);
+			border: none;
+			color: white;
+		}
+
+		.btn-primary:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 10px 20px rgba(255, 51, 102, 0.2);
+		}
+
+		.floating-elements {
+			position: absolute;
+			right: -5%;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 600px;
+			height: 600px;
+		}
+
+		.floating-element {
+			position: absolute;
+			border-radius: 50%;
+			background: linear-gradient(135deg, #FF3366, #FF6B3D);
+			filter: blur(60px);
+			opacity: 0.1;
+			animation: float 6s ease-in-out infinite;
+		}
+
+		@keyframes float {
+
+			0%,
+			100% {
+				transform: translateY(0);
+			}
+
+			50% {
+				transform: translateY(-20px);
+			}
+		}
+
+		.grid-section {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 24px;
+			padding: 80px 0;
+		}
+
+		.card {
+			background: rgba(255, 255, 255, 0.03);
+			border-radius: 24px;
+			padding: 32px;
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			transition: all 0.3s ease;
+		}
+
+		.card:hover {
+			transform: translateY(-5px);
+			border-color: rgba(255, 51, 102, 0.5);
+		}
+
+		@media (max-width: 768px) {
+			.container {
+				padding: 0 16px;
+			}
+
+			.hero-title {
+				font-size: 40px;
+			}
+
+			.floating-elements {
+				display: none;
+			}
+
+			.grid-section {
+				padding: 40px 16px;
+				grid-template-columns: 1fr;
+			}
+
+			.card {
+				margin: 0 16px;
+				width: calc(100% - 32px);
+			}
+		}
+
+		.btn {
+			text-decoration: none;
+			display: inline-block;
+			text-align: center;
+		}
+
+		.btn:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 10px 20px rgba(255, 51, 102, 0.2);
+		}
+	</style>
+	{% endblock %}
+</head>
+
+<body>
+	<div class="noise-bg"></div>
+
+	{% block header %}
+	<header class="header">
+		<nav class="container nav">
+			<div class="logo">
+				<a href="{% url 'home' %}">WebValley</a>
+			</div>
+			<a href="{% url 'login' %}" class="btn btn-primary">
+				Войти
+			</a>
+		</nav>
+	</header>
+	{% endblock %}
+
+	<main>
+		{% block content %}
+		<section class="hero">
+			<div class="container">
+				<div class="hero-content">
+					<h1 class="hero-title">{{ page.title|default:"100+ трендов в UI дизайне сайтов 2025 года" }}</h1>
+					<p class="hero-description">С развитием технических возможностей для
+						создания сайтов, тренды веб-дизайна появляются и исчезают за короткий срок. Мы собрали
+						действительно классные тренды UI, которые сохранят актуальность.</p>
+
+					{% if user.is_authenticated %}
+					<a href="/articles/" class="btn btn-primary">
+						Читать наши статьи
+					</a>
+					{% else %}
+					<a href="{% url 'login' %}" class="btn btn-primary">
+						Войдите, чтобы читать статьи
+					</a>
+					{% endif %}
+				</div>
+			</div>
+			<div class="floating-elements">
+				<div class="floating-element" style="width: 300px; height: 300px; top: 20%; left: 20%;"></div>
+				<div class="floating-element" style="width: 200px; height: 200px; top: 50%; left: 50%;"></div>
+				<div class="floating-element" style="width: 150px; height: 150px; top: 70%; left: 30%;"></div>
+			</div>
+		</section>
+
+		<section class="container grid-section">
+			{% for trend in trends %}
+			<div class="card">
+				<h3>{{ trend.title }}</h3>
+				<p>{{ trend.description }}</p>
+			</div>
+			{% empty %}
+			<div class="card">
+				<h3>Неоморфизм</h3>
+				<p>Современный подход к дизайну интерфейсов</p>
+			</div>
+			<div class="card">
+				<h3>Градиенты</h3>
+				<p>Яркие цветовые переходы</p>
+			</div>
+			<div class="card">
+				<h3>Глассморфизм</h3>
+				<p>Эффект матового стекла</p>
+			</div>
+			{% endfor %}
+		</section>
+		{% endblock %}
+	</main>
+
+	{% block modal %}
+	<div id="contact-form" class="modal" style="display: none;">
+		<div class="modal-content">
+			<form method="POST" action="">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit" class="btn btn-primary">Отправить</button>
+			</form>
+		</div>
+	</div>
+	{% endblock %}
+
+	{% block extra_js %}
+	<script src="{% static 'js/main.js' %}"></script>
+	{% endblock %}
+</body>
+
+</html>

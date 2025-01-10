@@ -1,0 +1,66 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block header %}
+<header class="header">
+	<nav class="container nav">
+		<div class="logo">
+			<a href="{% url 'home' %}">WebValley</a>
+		</div>
+	</nav>
+</header>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+	<div class="container">
+		<div class="hero-content" style="max-width: 100%; text-align: center;">
+			<h1 class="hero-title" style="margin: 0 auto 40px;">Регистрация</h1>
+			<div class="card" style="max-width: 400px; margin: 0 auto;">
+				<form method="post" action="{% url 'register' %}">
+					{% csrf_token %}
+					{% if messages %}
+					{% for message in messages %}
+					<div style="color: #FF3366; margin-bottom: 16px; text-align: center;">
+						{{ message }}
+					</div>
+					{% endfor %}
+					{% endif %}
+					<div style="margin-bottom: 24px;">
+						<label style="display: block; margin-bottom: 8px; color: #A5A5A5; text-align: left;">Имя
+							пользователя</label>
+						<input type="text" name="username" required style="width: 100%; padding: 16px; border-radius: 12px; 
+                                      background: rgba(255,255,255,0.05); 
+                                      border: 1px solid rgba(255,255,255,0.1); 
+                                      color: white;">
+					</div>
+					<div style="margin-bottom: 24px;">
+						<label
+							style="display: block; margin-bottom: 8px; color: #A5A5A5; text-align: left;">Пароль</label>
+						<input type="password" name="password" required style="width: 100%; padding: 16px; border-radius: 12px; 
+                                      background: rgba(255,255,255,0.05); 
+                                      border: 1px solid rgba(255,255,255,0.1); 
+                                      color: white;">
+					</div>
+					<div style="margin-bottom: 24px;">
+						<label style="display: block; margin-bottom: 8px; color: #A5A5A5; text-align: left;">Повторите
+							пароль</label>
+						<input type="password" name="password2" required style="width: 100%; padding: 16px; border-radius: 12px; 
+                                      background: rgba(255,255,255,0.05); 
+                                      border: 1px solid rgba(255,255,255,0.1); 
+                                      color: white;">
+					</div>
+					<button type="submit" class="btn btn-primary" style="width: 100%;">
+						Зарегистрироваться
+					</button>
+				</form>
+				<div style="margin-top: 14px; text-align: center;">
+					<a href="{% url 'login' %}" style="color: #A5A5A5; text-decoration: none;">
+						Уже есть аккаунт? Войдите
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

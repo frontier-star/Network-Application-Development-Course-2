@@ -1,52 +1,86 @@
-{% extends 'base.html' %}
+{% extends 'home.html' %}
+{% load static %}
 
 {% block title %}{{article.article_title}}{% endblock %}
 
 {% block content %}
-
 <header class="header">
-	<div class="container">
-		<h1 class="main_title">Блог</h1>
-		<nav class="navigation">
-			<a class="nav-link" href="{% url 'articles:index' %}">Главная</a>
-			<a class="nav-link" href="{% url 'articles:about' %}">О нас</a>
-		</nav>
-	</div>
+	<nav class="container nav">
+		<div class="logo">
+			<a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">WebValley</a>
+		</div>
+		<div style="display: flex; gap: 24px;">
+			<a href="{% url 'articles:index' %}" class="btn btn-primary">Главная</a>
+		</div>
+	</nav>
 </header>
 
-<main class="container">
-	<div class="article-main-content">
-		<h2 class="detail_main_title">{{article.article_title}}</h2>
-		<p class="detail_main_text">{{article.article_text}}</p>
-		<time class="detail_main_time">{{article.pub_date}}</time>
+<section class="hero">
+	<div class="container">
+		<div class="hero-content" style="max-width: 800px; margin: 0 auto;">
+			<h1 class="hero-title">{{article.article_title}}</h1>
+			<div class="card article-content" style="margin-bottom: 32px;">
+				<div style="color: #A5A5A5; line-height: 1.8;">
+					<p style="margin: 0;">{{article.article_text}}</p>
+				</div>
+				<time
+					style="color: #A5A5A5; font-size: 14px; margin-top: 24px; display: block;">{{article.pub_date}}</time>
+			</div>
+
+			<style>
+				.article-content {
+					white-space: pre-line;
+				}
+			</style>
+
+			<h2 class="hero-title" style="font-size: 32px; margin-bottom: 24px;">Комментарии</h2>
+
+			{% if latest_comments_list %}
+			<div style="display: grid; gap: 16px; margin-bottom: 32px;">
+				{% for c in latest_comments_list %}
+				<div class="card">
+					<strong style="color: white; margin-bottom: 8px; display: block;">{{c.author_name}}</strong>
+					<p style="color: #A5A5A5;">{{c.comment_text}}</p>
+				</div>
+				{% endfor %}
+			</div>
+			{% else %}
+			<p style="color: #A5A5A5; text-align: center; margin-bottom: 32px;">Нет комментариев</p>
+			{% endif %}
+
+			<div class="card">
+				<form action="{% url 'articles:leave_comment' article.id %}" method="post">
+					{% csrf_token %}
+					<div style="margin-bottom: 24px;">
+						<input type="text" required placeholder="Ваше имя" name="name" style="width: 100%; padding: 16px; border-radius: 12px; 
+									  background: rgba(255,255,255,0.05); 
+									  border: 1px solid rgba(255,255,255,0.1); 
+									  color: white;">
+					</div>
+					<div style="margin-bottom: 24px;">
+						<textarea name="text" required placeholder="Текст комментария" rows="5" style="width: 100%; padding: 16px; border-radius: 12px; 
+										 background: rgba(255,255,255,0.05); 
+										 border: 1px solid rgba(255,255,255,0.1); 
+										 color: white; resize: vertical;"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary" style="width: 100%;">
+						Оставить комментарий
+					</button>
+				</form>
+			</div>
+		</div>
 	</div>
-	<p class="detail_main_title-comment">Комментарии</p>
-	
-	{% if latest_comments_list %}
-	
-		{% for c in latest_comments_list %}
-			<p>
-				<strong>{{c.author_name}}</strong>
-				<p>{{c.comment_text}}</p>
-			</p>
-		{% endfor %}
-	
-	{% else %}
-	Нет комментариев
-	{% endif %}
-	
-	<hr>
-	
-	<form action="{% url 'articles:leave_comment' article.id %}" method="post" class="comment-form">
-		{% csrf_token %}
-		<input type="text" required placeholder="Ваше имя" name="name" class="comment-form-input"><br>
-		<textarea name="text" required placeholder="Текст комментария" cols="30" rows="10" class="comment-form-textarea"></textarea><br>
-		<button type="submit" class="comment-form-button">Оставить комментарий</button>
-	</form>
-	
-</main>
-<footer class="footer container">
-    <p>Сайт-блог создан в 2024 году</p>
-    <p>Читайте наши лучшие статьи</p>
+	<div class="floating-elements">
+		<div class="floating-element" style="width: 300px; height: 300px; top: 20%; left: 20%;"></div>
+		<div class="floating-element" style="width: 200px; height: 200px; top: 50%; left: 50%;"></div>
+		<div class="floating-element" style="width: 150px; height: 150px; top: 70%; left: 30%;"></div>
+	</div>
+</section>
+
+<footer style="text-align: center; padding: 48px 0; color: #A5A5A5;">
+	<div class="container">
+		<p style="margin-bottom: 8px;">Сайт-блог создан в 2024 году</p>
+		<p>Читайте наши лучшие статьи</p>
+	</div>
 </footer>
 {% endblock %}

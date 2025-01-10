@@ -3,36 +3,149 @@
 {% block title %}Последние статьи{% endblock %}
 
 {% block content %}
-<header class="header">
-    <div class="container">
-        <h1 class="main_title">Блог</h1>
-        <nav class="navigation">
-            <a class="nav-link" href="{% url 'articles:index' %}">Главная</a>
-            <a class="nav-link" href="{% url 'articles:about' %}">О нас</a>
-        </nav>
-    </div>
+<header class="header" style="position: fixed; 
+                             width: 100%; 
+                             top: 0; 
+                             background: rgba(10, 10, 11, 0.8); 
+                             backdrop-filter: blur(10px); 
+                             border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+    <nav class="container nav" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="logo">
+            <a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">WebValley</a>
+        </div>
+        <div>
+            <a href="{% url 'profile' %}" class="btn btn-primary" style="text-decoration: none; 
+                      font-family: 'Inter', sans-serif; 
+                      font-weight: 500;
+                      background: linear-gradient(135deg, #FF3366 0%, #FF6B3D 100%);
+                      border: none;
+                      padding: 12px 24px;
+                      border-radius: 12px;
+                      color: white;
+                      transition: opacity 0.3s ease;">Профиль</a>
+        </div>
+    </nav>
 </header>
 
-<main class="main-content">
-    <div class="article-list container">
-        {% if latest_articles_list %}
-            {% for a in latest_articles_list %}
-                <div class="article">
-                    <img class="article-image" src="{% static 'images/article_image.jpg' %}" alt="Изображение статьи">
-                    <div class="flex-article">
-                        <h2 class="article-title"><a class="link-title-article" href="{% url 'articles:detail' a.id %}">{{ a.article_title }}</a></h2>
-                        <p class="article-date">{{ a.pub_date }}</p>
+<section class="hero" style="min-height: 100vh; background: #0A0A0B; padding-top: 100px;">
+    <div class="container">
+        <div class="hero-content" style="max-width: 100%; position: relative; z-index: 2;">
+            <h1 class="hero-title"
+                style="margin-bottom: 48px; background: linear-gradient(135deg, #FFFFFF 0%, #A5A5A5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Наши статьи
+            </h1>
+
+            {% if latest_articles_list %}
+            <div style="display: grid; gap: 24px;">
+                {% for a in latest_articles_list %}
+                <div class="card" style="background: rgba(255, 255, 255, 0.03); 
+                                                border-radius: 24px; 
+                                                padding: 32px;
+                                                backdrop-filter: blur(10px);
+                                                border: 1px solid rgba(255, 255, 255, 0.1);
+                                                display: flex; 
+                                                align-items: center; 
+                                                gap: 24px;">
+                    <img src="{% static 'images/article_image.jpg' %}" alt="Изображение статьи"
+                        style="width: 200px; height: 150px; object-fit: cover; border-radius: 12px;">
+                    <div>
+                        <h2 style="font-size: 24px; margin-bottom: 16px;">
+                            <a href="{% url 'articles:detail' a.id %}" style="color: white; text-decoration: none; 
+                                              background: linear-gradient(135deg, #FFFFFF 0%, #A5A5A5 100%);
+                                              -webkit-background-clip: text;
+                                              -webkit-text-fill-color: transparent;
+                                              font-weight: 600;">
+                                {{ a.article_title }}
+                            </a>
+                        </h2>
+                        <p style="color: #A5A5A5;">{{ a.pub_date }}</p>
                     </div>
                 </div>
-            {% endfor %}
-        {% else %}
-            <p class="no-articles">Статьи не найдены</p>
-        {% endif %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <p style="color: #A5A5A5; text-align: center;">Статьи не найдены</p>
+            {% endif %}
+        </div>
     </div>
-</main>
+    <div class="floating-elements" style="position: fixed;">
+        <div class="floating-element" style="width: 300px; height: 300px; top: 20%; left: 20%;"></div>
+        <div class="floating-element" style="width: 200px; height: 200px; top: 50%; left: 50%;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; top: 70%; left: 30%;"></div>
+    </div>
+</section>
 
-<footer class="footer container">
-    <p>Сайт-блог создан в 2024 году</p>
-    <p>Читайте наши лучшие статьи</p>
-</footer>
+<style>
+    @media (max-width: 768px) {
+        .nav {
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .hero-title {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        .card {
+            flex-direction: column !important;
+            text-align: center;
+            padding: 24px !important;
+        }
+
+        .card img {
+            width: 100% !important;
+            max-width: 300px !important;
+        }
+
+        .container {
+            padding: 0 16px;
+        }
+    }
+
+    .floating-elements {
+        pointer-events: none;
+    }
+
+    .floating-element {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, rgba(255, 51, 102, 0.1) 0%, rgba(255, 107, 61, 0.1) 100%);
+        filter: blur(40px);
+        animation: float 10s infinite ease-in-out;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: 600;
+        background: linear-gradient(135deg, #FF3366 0%, #FF6B3D 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .header {
+        padding: 24px 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        background: rgba(10, 10, 11, 0.8);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            padding-top: 120px !important;
+        }
+    }
+</style>
 {% endblock %}

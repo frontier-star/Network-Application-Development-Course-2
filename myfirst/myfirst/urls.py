@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from articles.views import home_view, login_view, register_view, profile
 
 urlpatterns = [
+    path('', home_view, name='home'),  # добавляем маршрут для главной страницы
+    path('login/', login_view, name='login'),  # добавляем URL для логина
+    path('register/', register_view, name='register'),
+    path('profile/', profile, name='profile'),
     path('articles/', include('articles.urls')),
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
